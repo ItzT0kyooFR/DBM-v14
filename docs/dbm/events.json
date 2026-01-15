@@ -1,6 +1,86 @@
 [
   {
-    "name": "Event Name",
-    "description": "Event Description"
+    "name": "Command Execute",
+    "description": "Activates when any command is used."
+  },
+  {
+    "name": "Scheduled Event",
+    "description": "It activates at the time you schedule."
+  },
+  {
+    "name": "Delete Bulk Messages",
+    "description": "Activates when multiple messages are deleted at once."
+  },
+  {
+    "name": "File Watch Event",
+    "description": "It is activated when any operation is performed on a file in the selected directory."
+  },
+  {
+    "name": "Interaction Create",
+    "description": "Activates when any interaction is triggered."
+  },
+  {
+    "name": "Member Boosted Server",
+    "description": "Activates when a member boosts the server."
+  },
+  {
+    "name": "Member Join Voice Channel",
+    "description": "Activates when a member joins a voice channel."
+  },
+  {
+    "name": "Member Leave Voice Channel",
+    "description": "Activates when a member leaves the voice channel."
+  },
+  {
+    "name": "Member Move Voice Channel",
+    "description": "Activates when a member is moved to another voice channel."
+  },
+  {
+    "name": "Member Start Streaming",
+    "description": "Activates when a member starts streaming on the voice channel."
+  },
+  {
+    "name": "Member Stop Streaming",
+    "description": "Activates when a member finishes streaming in a voice channel."
+  },
+  {
+    "name": "Message Reaction Added",
+    "description": "Activates when you add a reaction to a message."
+  },
+  {
+    "name": "Message Reaction Removed",
+    "description": "Activates after removing the reaction from the message."
+  },
+  {
+    "name": "Member Nickname Changed",
+    "description": "It is activated when a member's nickname is changed."
+  },
+  {
+    "name": "Member Role Added",
+    "description": "Activates when a member's role is added."
+  },
+  {
+    "name": "Member Role Removed",
+    "description": "Activates when a member's role is removed."
+  },
+  {
+    "name": "Guild Scheduled Event Create",
+    "description": ""
+  },
+  {
+    "name": "Guild Scheduled Event Delete",
+    "description": ""
+  },
+  {
+    "name": "Guild Scheduled Event Update",
+    "description": ""
+  },
+  {
+    "name": "Guild Scheduled Event User Add",
+    "description": ""
+  },
+  {
+    "name": "Guild Scheduled Event User Remove",
+    "description": ""
   }
 ]

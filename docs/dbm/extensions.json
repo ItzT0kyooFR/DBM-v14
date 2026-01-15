@@ -1,6 +1,10 @@
 [
   {
-    "name": "Extension Name",
-    "description": "Extension Description"
+    "name": "Bot Intents",
+    "description": "Use to set bot intents."
+  },
+  {
+    "name": "Bot Partials",
+    "description": "Use to set bot partials."
   }
 ]

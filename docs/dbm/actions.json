@@ -1,7 +1,1227 @@
 [
   {
-    "name": "Action Name",
-    "description": "Action Description",
-    "section": "Action Section"
+    "name": "Clear Queue",
+    "description": "Use to clear the audio playback queue.s",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Control Audio",
+    "description": "Use to manage audio playback.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Join Voice Channel",
+    "description": "Use to have the bot join a voice channel.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Leave Voice Channel",
+    "description": "Use to make the bot leave the voice channel.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Play File",
+    "description": "Use to make the bot start playing an audio file.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Play URL",
+    "description": "Use to make the bot start playing audio from the selected url.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Play YouTube Video",
+    "description": "Use to make the bot start playing a YouTube video.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Set Audio Volume",
+    "description": "Use to adjust the bot volume.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Shuffle Queue",
+    "description": "Use to shuffle the queue.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Skip Queue",
+    "description": "Use to skip the queue.",
+    "section": "Audio Control"
+  },
+  {
+    "name": "Reconnect Bot",
+    "description": "Use to reconnect the bot to Discord.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Reload Commands",
+    "description": "Use to dynamically reload commands.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Restart Bot",
+    "description": "Use to restart the bot.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Activity",
+    "description": "Use to set bot activity.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot AFK",
+    "description": "Use to set the bot's afk status.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Avatar",
+    "description": "Use to set the bot's avatar.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Banner",
+    "description": "Use to set the bot's banner.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Nickname",
+    "description": "Use to set the bot's nickname.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Presence",
+    "description": "Use to set bot presence.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Status",
+    "description": "Use to set bot status.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Set Bot Username",
+    "description": "Use to set bot username.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Stop Bot",
+    "description": "Use to disable the bot.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Store Bot as Member",
+    "description": "Use to get the bot object as a member.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Store Bot Client Info",
+    "description": "Use to get information about the bot client.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Store Command Info",
+    "description": "Use to get information about a command.",
+    "section": "Bot Client Control"
+  },
+  {
+    "name": "Add Member to Thread/Post",
+    "description": "Use to add a member to a thread/post.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Archive Thread/Post",
+    "description": "Use to archive a thread/post.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Clone Channel",
+    "description": "Use to clone a channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Announcement Channel",
+    "description": "Use to create an announcement channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Category",
+    "description": "Use to create a category.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Forum Channel",
+    "description": "Use to create a forum channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Post",
+    "description": "Use to create a post in a forum channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Stage Voice Channel",
+    "description": "Use to create a stage voice channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Text Channel",
+    "description": "Use to create a text channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Thread",
+    "description": "Use to create a thread channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Voice Channel",
+    "description": "Use to create a voice channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Create Webhook",
+    "description": "Use to create a webhook.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Delete Channel",
+    "description": "Use to delete the selected channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Delete Webhook",
+    "description": "Use to remove a webhook.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Category",
+    "description": "Use to edit a category.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Forum Channel",
+    "description": "Use to edit a forum channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Text Channel",
+    "description": "Use to edit a text channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Thread/Post Channel",
+    "description": "Use to edit a thread/post channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Voice Channel",
+    "description": "Use to edit a voice channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Edit Webhook",
+    "description": "Use to edit a webhook.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Find Category",
+    "description": "Use to find a category.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Find Channel",
+    "description": "Use to find a Channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Find Webhook",
+    "description": "Use to find a webhook.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Remove Member from Thread/Post",
+    "description": "Use to remove a member from a thread/post.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Set Channel Category",
+    "description": "Use to set a category for the channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Set Channel Permissions",
+    "description": "Use to set (everyone) permissions for a channel",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Set Member Channel Permissions",
+    "description": "Use to set permissions (per selected member) for a channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Set Role Channel Permissions",
+    "description": "Use to set permissions (per selected role) for a channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Set Slowmode",
+    "description": "Use to set slow mode on a channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Store Channel Info",
+    "description": "Use to get information about the channel.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Store Webhook Info",
+    "description": "Use to get information about a webhook.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Sync Channel Permissions",
+    "description": "Use to sync a channel's permissions with its parent category.",
+    "section": "Channel Control"
+  },
+  {
+    "name": "Check If Command Exists",
+    "description": "Use to verify whether a specific command exists.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check if Emoji Exists",
+    "description": "Use to verify whether a given emoji exists in the server.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check If Member",
+    "description": "Use to check if a user is a member of a server or context.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check If Member has Role",
+    "description": "Use to check whether a member has a specific role.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check If Member In Server",
+    "description": "Use to check if a user is present in a particular server.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check If Member Reacted",
+    "description": "Use to check if a member reacted to a message with a specific reaction.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check If Message",
+    "description": "Use to validate that a message meets given criteria.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Member Permissions",
+    "description": "Use to check a member's permissions in a channel or server.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Parameters",
+    "description": "Use to verify function/command parameters or input values.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Role Permissions",
+    "description": "Use to check the permissions assigned to a role.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Variable",
+    "description": "Use to check a variable's value against a condition.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Variable Type",
+    "description": "Use to verify the data type of a variable.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Multi-Check Variable",
+    "description": "Use to perform multiple checks against a variable in sequence.",
+    "section": "Conditions"
+  },
+  {
+    "name": "Check Channel Data",
+    "description": "Use to test stored data associated with a channel.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Check Global Data",
+    "description": "Use to test stored global data values.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Check Member Data",
+    "description": "Use to test stored data associated with a member.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Check Message Data",
+    "description": "Use to test stored data associated with a message.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Check Server Data",
+    "description": "Use to test stored data associated with a server.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Control Channel Data",
+    "description": "Use to create or update stored data for a channel.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Control Global Data",
+    "description": "Use to create or update stored global data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Control Member Data",
+    "description": "Use to create or update stored data for a member.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Control Message Data",
+    "description": "Use to create or update stored data for a message.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Control Server Data",
+    "description": "Use to create or update stored data for a server.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Delete Channel Data",
+    "description": "Use to remove stored data associated with a channel.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Delete Global Data",
+    "description": "Use to remove stored global data values.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Delete Member Data",
+    "description": "Use to remove stored data associated with a member.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Delete Message Data",
+    "description": "Use to remove stored data associated with a message.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Delete Server Data",
+    "description": "Use to remove stored data associated with a server.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Channel Data",
+    "description": "Use to store or save a value in channel-scoped data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Data List",
+    "description": "Use to store or update a list in the data store.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Global Data",
+    "description": "Use to store or save a value in global-scoped data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Member Data",
+    "description": "Use to store or save a value in member-scoped data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Message Data",
+    "description": "Use to store or save a value in message-scoped data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Store Server Data",
+    "description": "Use to store or save a value in server-scoped data.",
+    "section": "Data Control"
+  },
+  {
+    "name": "Create Emoji",
+    "description": "Use to upload and create a new custom emoji on the server.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Create Sticker",
+    "description": "Use to upload and create a new sticker on the server.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Delete Emoji",
+    "description": "Use to remove a custom emoji from the server.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Delete Sticker",
+    "description": "Use to remove a sticker from the server.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Find Custom Emoji/Sticker",
+    "description": "Use to locate a custom emoji or sticker by name or ID.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Find Reaction",
+    "description": "Use to find a specific reaction on a message.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Store Reaction Info",
+    "description": "Use to retrieve and store information about a reaction.",
+    "section": "Emoji/Sticker Control"
+  },
+  {
+    "name": "Check if File Exists",
+    "description": "Use to check whether a file exists at a specified path.",
+    "section": "File Stuff"
+  },
+  {
+    "name": "Download File",
+    "description": "Use to download a file from a URL to disk.",
+    "section": "File Stuff"
+  },
+  {
+    "name": "File Control",
+    "description": "Use to perform file operations such as move, copy, or delete.",
+    "section": "File Stuff"
+  },
+  {
+    "name": "Read File",
+    "description": "Use to read the contents of a file into memory.",
+    "section": "File Stuff"
+  },
+  {
+    "name": "Store File Info",
+    "description": "Use to store metadata or information about a file.",
+    "section": "File Stuff"
+  },
+  {
+    "name": "Create Invite",
+    "description": "Use to create a server invite with specified options.",
+    "section": "Invite Control"
+  },
+  {
+    "name": "Delete Invite",
+    "description": "Use to delete an existing server invite.",
+    "section": "Invite Control"
+  },
+  {
+    "name": "Find Invite",
+    "description": "Use to find an invite by code or URL.",
+    "section": "Invite Control"
+  },
+  {
+    "name": "Add Item to List",
+    "description": "Use to append an item to a list variable.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Convert List to Text",
+    "description": "Use to convert a list into a text string.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Convert Text to List",
+    "description": "Use to split text into a list by a delimiter.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Create List",
+    "description": "Use to create a new empty list variable.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Edit Item from List",
+    "description": "Use to edit an existing item at a list index.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Find Item in List",
+    "description": "Use to search for an item within a list.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Get Item from List",
+    "description": "Use to retrieve an item from a list by index.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Get List Length",
+    "description": "Use to get the number of items in a list.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Loop Through All Servers",
+    "description": "Use to iterate through every server the bot is in.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Loop Through Folder",
+    "description": "Use to iterate over files in a folder.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Loop Through List",
+    "description": "Use to iterate through each item in a list.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Loop Through Numbers",
+    "description": "Use to loop through a numeric range of values.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Merge Lists",
+    "description": "Use to combine two or more lists into one.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Remove Item from List",
+    "description": "Use to remove an item from a list by value or index.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Store Permissions List",
+    "description": "Use to store a list of permissions for later use.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Transform List",
+    "description": "Use to apply a transformation to each item in a list.",
+    "section": "Lists and Loops"
+  },
+  {
+    "name": "Add Member Role",
+    "description": "Use to add a role to a member.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Ban Member",
+    "description": "Use to ban a member from the server.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Find Member",
+    "description": "Use to locate a member by ID, name, or mention.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Kick Member",
+    "description": "Use to kick a member from the server.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Move Member to Voice Channel",
+    "description": "Use to move a member into a specified voice channel.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Remove Member Role",
+    "description": "Use to remove a role from a member.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Remove Member Timeout",
+    "description": "Use to remove an active timeout from a member.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Reset Member Nickname",
+    "description": "Use to reset a member's nickname to their default username.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Set Member Deafen",
+    "description": "Use to deafen or undeafen a member in voice channels.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Set Member Mute",
+    "description": "Use to mute or unmute a member in voice channels.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Set Member Nickname",
+    "description": "Use to change a member's nickname.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Store Member Info",
+    "description": "Use to retrieve and store details about a member.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Timeout Member",
+    "description": "Use to apply a timeout (temporary mute) to a member.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Unban Member",
+    "description": "Use to remove a ban and unban a user from the server.",
+    "section": "Member Control"
+  },
+  {
+    "name": "Add Reaction",
+    "description": "Use to add a reaction emoji to a message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Await Message from Member",
+    "description": "Use to wait for a message from a specific member.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Await Reaction",
+    "description": "Use to wait for a reaction matching given criteria.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Await Response",
+    "description": "Use to wait for a reply or input from a user.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Crosspost Message",
+    "description": "Use to crosspost (publish) a message to follower channels.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Delete Bulk Messages",
+    "description": "Use to bulk-delete multiple messages at once.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Delete Message",
+    "description": "Use to delete a single message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Disable Buttons/Selects",
+    "description": "Use to disable interactive buttons or select menus on a message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Edit Button",
+    "description": "Use to edit the label or behavior of a message button.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Edit String Select Menu Options",
+    "description": "Use to update the options in a string select menu.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Find Message",
+    "description": "Use to locate a message by ID, content, or author.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Pin Message",
+    "description": "Use to pin a message to the channel.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Remove Buttons/Selects",
+    "description": "Use to remove interactive components from a message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Remove Reaction",
+    "description": "Use to remove a user's reaction from a message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Send Components V2",
+    "description": "Use to send a message with interactive components (version 2).",
+    "section": "Messaging"
+  },
+  {
+    "name": "Send Message",
+    "description": "Use to send a text or embed message to a channel.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Send Webhook Message",
+    "description": "Use to send a message via a webhook.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Show Modal",
+    "description": "Use to display a modal dialog to a user.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Start Thinking",
+    "description": "Use to show a thinking/loading state for interactions that support it.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Start Typing",
+    "description": "Use to trigger the typing indicator in a channel.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Store Message Info",
+    "description": "Use to retrieve and store metadata about a message.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Unpin Message",
+    "description": "Use to unpin a message from the channel.",
+    "section": "Messaging"
+  },
+  {
+    "name": "Action Anchor",
+    "description": "Use to mark a point in an action sequence for jumping or referencing.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Action Container",
+    "description": "Use to group a set of actions into a single container.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Add Commas to Number",
+    "description": "Use to format a number with commas as thousands separators.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Add Item to Object",
+    "description": "Use to add a field or property to an object.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Add Items to Object",
+    "description": "Use to add multiple fields or properties to an object.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Advanced Math Operation",
+    "description": "Use to perform advanced mathematical calculations.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Basic Math Operation",
+    "description": "Use to perform basic arithmetic operations.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Call Command/Event",
+    "description": "Use to trigger another command or event programmatically.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Change Global Prefix",
+    "description": "Use to change the bot's global command prefix.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Comment",
+    "description": "Use to add a non-executing comment or note in the action sequence.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Control Variable",
+    "description": "Use to create, edit, or delete variables.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Convert Time",
+    "description": "Use to convert time between formats or units.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Convert Variable",
+    "description": "Use to convert a variable from one type or format to another.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Create Anchor",
+    "description": "Use to create a named anchor for navigation within actions.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Create Object",
+    "description": "Use to create a new object with specified properties.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Create Transcript",
+    "description": "Use to generate a transcript of a channel's messages.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Create Variable",
+    "description": "Use to create a new variable with an initial value.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Delete Item from Object",
+    "description": "Use to remove a property from an object.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Delete Items From Object",
+    "description": "Use to remove multiple properties from an object.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Disable Command",
+    "description": "Use to disable a command so it cannot be executed.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "End Action Sequence",
+    "description": "Use to immediately end the current sequence of actions.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Find Text",
+    "description": "Use to search for text within a string or message.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Generate Random Hex Color",
+    "description": "Use to generate a random hexadecimal color value.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Generate Random Letters",
+    "description": "Use to generate a random sequence of letters.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Generate Random Number",
+    "description": "Use to generate a random number within a range.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Generate Random Word",
+    "description": "Use to generate a random word.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Get Color",
+    "description": "Use to retrieve or parse a color value.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Go To Action Anchor",
+    "description": "Use to jump execution to a previously defined action anchor.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Jump to Action",
+    "description": "Use to jump to another action in the sequence.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Jump to Anchor",
+    "description": "Use to jump execution to a named anchor point.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Parse From Stored Json",
+    "description": "Use to parse JSON data retrieved from stored variables.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Random Action Container",
+    "description": "Use to execute one random action from a container.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Repeat Text",
+    "description": "Use to repeat a text string multiple times.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Replace Text",
+    "description": "Use to replace occurrences of text within a string.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Revise Text",
+    "description": "Use to alter or reformat text according to rules.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Run Action Sequence Once",
+    "description": "Use to run an action sequence a single time.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Run Command in Console",
+    "description": "Use to execute a system command in the console/terminal.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Run Script",
+    "description": "Use to execute an external script or file.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Save Variable",
+    "description": "Use to persist a variable to long-term storage.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Send Json to WebAPI",
+    "description": "Use to send JSON data to an external web API endpoint.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Send Message to Console",
+    "description": "Use to output text to the application's console.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Set Channel Restriction",
+    "description": "Use to restrict actions or commands to a channel or set of channels.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Set Member Restriction",
+    "description": "Use to restrict actions or commands to specific members.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Set Role Restriction",
+    "description": "Use to restrict actions or commands to members with certain roles.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Set Server Restriction",
+    "description": "Use to restrict actions or commands to specific servers.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Set Time Restriction",
+    "description": "Use to limit actions to run only during specified times.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Skip Actions",
+    "description": "Use to skip a number of subsequent actions in the sequence.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Slice Text",
+    "description": "Use to extract a substring from a text string.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Split Text",
+    "description": "Use to split text into parts by a delimiter.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store Command Params",
+    "description": "Use to capture and store parameters passed to a command.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store Console Input Parts",
+    "description": "Use to parse and store parts of console input.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store HTML From Webpage",
+    "description": "Use to fetch and store raw HTML from a webpage.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store Json From WebAPI",
+    "description": "Use to fetch and store JSON data from a web API.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store Object Info",
+    "description": "Use to retrieve and store details about an object.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store Time Info",
+    "description": "Use to retrieve and store time-related information.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store YouTube Channel Info",
+    "description": "Use to fetch and store information about a YouTube channel.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Store YouTube Video Info",
+    "description": "Use to fetch and store information about a YouTube video.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Transfer Variable",
+    "description": "Use to move a variable's value between scopes or variables.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Translate",
+    "description": "Use to translate text from one language to another.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Variable Pattern",
+    "description": "Use to match or validate a variable against a pattern.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Wait",
+    "description": "Use to pause execution for a specified duration.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "YouTube Search",
+    "description": "Use to search YouTube and return matching videos or channels.",
+    "section": "Other Stuff"
+  },
+  {
+    "name": "Create Role",
+    "description": "Use to create a new role on the server.",
+    "section": "Role Control"
+  },
+  {
+    "name": "Delete Role",
+    "description": "Use to delete an existing role from the server.",
+    "section": "Role Control"
+  },
+  {
+    "name": "Edit Role",
+    "description": "Use to modify a role's name, permissions, or settings.",
+    "section": "Role Control"
+  },
+  {
+    "name": "Find Role",
+    "description": "Use to find a role by name or ID.",
+    "section": "Role Control"
+  },
+  {
+    "name": "Store Role Info",
+    "description": "Use to retrieve and store information about a role.",
+    "section": "Role Control"
+  },
+  {
+    "name": "Change Server",
+    "description": "Use to switch context to a different server.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Delete Server",
+    "description": "Use to delete a server (requires appropriate permissions).",
+    "section": "Server Control"
+  },
+  {
+    "name": "Find Server",
+    "description": "Use to locate a server by ID or name.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Leave Server",
+    "description": "Use to make the bot leave a server.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Reset Server AFK Channel",
+    "description": "Use to reset the server's AFK channel to none.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Reset Server Rules Channel",
+    "description": "Use to clear the server's rules channel setting.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Reset Server System Channel",
+    "description": "Use to clear the server's system channel setting.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Reset Server Updates Channel",
+    "description": "Use to clear the server's updates channel setting.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Server Ban List",
+    "description": "Use to retrieve the list of banned users from the server.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Role Permissions",
+    "description": "Use to set permissions for a specific role.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server AFK Channel",
+    "description": "Use to set the server's AFK channel.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server AFK Timeout",
+    "description": "Use to set the server's AFK timeout duration.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Banner",
+    "description": "Use to set or change the server's banner image.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Icon",
+    "description": "Use to set or change the server's icon/avatar.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Name",
+    "description": "Use to rename the server.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Rules Channel",
+    "description": "Use to assign the server's rules channel.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server System Channel",
+    "description": "Use to assign the server's system channel.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Updates Channel",
+    "description": "Use to assign the server's updates channel.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Set Server Verification",
+    "description": "Use to set the server's verification level.",
+    "section": "Server Control"
+  },
+  {
+    "name": "Store Server Info",
+    "description": "Use to retrieve and store information about the server.",
+    "section": "Server Control"
   }
 ]
