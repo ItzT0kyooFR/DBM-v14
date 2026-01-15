@@ -1,5 +1,7 @@
 name: "Generate Mod Docs"
 description: "Generates mod documentation."
+on:
+  workflow_dispatch:
 runs:
   using: "node20"
   main: "generate_mod_docs.mjs"
