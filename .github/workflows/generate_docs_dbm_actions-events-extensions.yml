@@ -32,7 +32,7 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
-          const apiFile = path.join(process.cwd(), 'temp/extensions_list.json');
+          const apiFile = path.join(process.cwd(), './../../docs/dbm/extensions.json');
           const outputFile = path.join(process.cwd(), 'extensions.json');
 
           const list = JSON.parse(fs.readFileSync(apiFile, 'utf-8'));
