@@ -57,7 +57,11 @@ jobs:
           # edytuj release (NIE ruszamy tagu!)
           gh release edit "$EXISTING_TAG" \
             --title "$DBM_VERSION" \
-            --notes "Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}"
+            --notes "$(cat <<EOF
+Bot version: v${BOT_VERSION}
+DiscordJS version: ${DISCORDJS_VERSION}
+EOF
+)"
 
           # dodaj nowe assety
           gh release upload "$EXISTING_TAG" bot.zip dbm.zip --clobber
@@ -87,6 +91,10 @@ jobs:
         run: |
           gh release create latest \
             --title "$DBM_VERSION" \
-            --notes "Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}" \
+            --notes "$(cat <<EOF
+Bot version: v${BOT_VERSION}
+DiscordJS version: ${DISCORDJS_VERSION}
+EOF
+)" \
             --target main \
             bot.zip dbm.zip
