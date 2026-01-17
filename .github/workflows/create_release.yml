@@ -3,7 +3,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "bot/**"
+      - "bot/package.json"
 
 permissions:
   contents: write # potrzebne do gh release
@@ -38,25 +38,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          PREV_LATEST_TAG=$(gh release list --limit 10 --json tagName,name | jq -r '.[] | select(.tagName=="latest") | .tagName')
           PREV_LATEST_NAME=$(gh release list --limit 10 --json tagName,name | jq -r '.[] | select(.tagName=="latest") | .name')
-          if [ -n "$PREV_LATEST_NAME" ]; then
+          if [ -n "$PREV_LATEST_TAG" ]; then
             echo "Found previous release with tag 'latest': $PREV_LATEST_NAME"
-            gh release edit "$PREV_LATEST_NAME" --tag "$PREV_LATEST_NAME"
+            # zmieniamy tag release z latest na numer wersji
+            gh release edit "$PREV_LATEST_TAG" --tag "$PREV_LATEST_NAME"
             echo "Previous 'latest' tag reassigned to '$PREV_LATEST_NAME'"
           fi
 
-      # 5️⃣ Remove previous release with same DBM version (optional)
-      - name: Remove previous release with same DBM version
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PREV_RELEASE_TAG=$(gh release list --limit 100 --json tagName,name | jq -r ".[] | select(.name==\"${DBM_VERSION}\") | .tagName")
-          if [ -n "$PREV_RELEASE_TAG" ]; then
-            echo "Found existing release with DBM version $DBM_VERSION (tag: $PREV_RELEASE_TAG), deleting it..."
-            gh release delete "$PREV_RELEASE_TAG" --yes
-          fi
-
-      # 6️⃣ Create new release with tag latest and zip assets
+      # 5️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
