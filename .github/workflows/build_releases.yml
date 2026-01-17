@@ -14,9 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2️⃣ Ustawienie zmiennych wersji
       - name: Set version variables
         id: vars
         run: |
@@ -26,19 +28,41 @@ jobs:
           else
             echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
             echo "save_docs=false" >> $GITHUB_OUTPUT
-          fi
 
+      # 3️⃣ Odczyt wersji Discord.js
       - name: Read Discord.js version
         id: discordjs
         run: |
-          VERSION=$(node -e "const p=require('./bot/package.json'); const v=(p.dependencies?.['discord.js'] || p.devDependencies?.['discord.js'] || 'unknown'); console.log(v.replace(/^[^0-9]*/, ''))")
+          if [ -f bot/package.json ]; then
+            VERSION=$(node -e "const p=require('./bot/package.json'); const v=(p.dependencies?.['discord.js'] || p.devDependencies?.['discord.js'] || 'unknown'); console.log(v.replace(/^[^0-9]*/, ''))")
+          else
+            VERSION="unknown"
+          fi
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
+      # 4️⃣ Tworzenie branchy wersji (tylko main)
+      - name: Create version branch if not exists
+        if: github.ref_name == 'main'
+        run: |
+          BOT_VERSION=$(node -p "require('./bot/package.json').version")
+          BRANCH_NAME="v${BOT_VERSION}"
+
+          # sprawdź czy branch istnieje w remote
+          if git ls-remote --exit-code origin $BRANCH_NAME; then
+            echo "Branch $BRANCH_NAME already exists"
+          else
+            echo "Creating branch $BRANCH_NAME"
+            git checkout -b $BRANCH_NAME
+            git push origin $BRANCH_NAME
+            git checkout main
+
+      # 5️⃣ Tworzenie ZIP-ów
       - name: Create ZIP files
         run: |
           zip -r ${{ steps.vars.outputs.version }}_bot.zip bot
           zip -r ${{ steps.vars.outputs.version }}_dbm.zip dbm
 
+      # 6️⃣ Zapis ZIP-ów do docs/downloads (tylko main)
       - name: Save ZIPs to docs/downloads (main only)
         if: steps.vars.outputs.save_docs == 'true'
         run: |
@@ -46,6 +70,7 @@ jobs:
           mv ${{ steps.vars.outputs.version }}_bot.zip docs/downloads/latest_bot.zip
           mv ${{ steps.vars.outputs.version }}_dbm.zip docs/downloads/latest_dbm.zip
 
+      # 7️⃣ Commit ZIP-ów do main
       - name: Commit ZIPs to main
         if: steps.vars.outputs.save_docs == 'true'
         run: |
@@ -59,8 +84,8 @@ jobs:
           else
             git commit -m "Update latest download ZIPs"
             git push
-          fi
 
+      # 8️⃣ Usuń stary release
       - name: Delete old release
         uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
@@ -68,6 +93,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # 9️⃣ Tworzenie nowego release z ZIP-ami
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -77,7 +103,7 @@ jobs:
             - **Bot version:** ${{ steps.vars.outputs.version }}
             - **DiscordJS version:** ${{ steps.discordjs.outputs.version }}
           files: |
-            ${{ steps.vars.outputs.version }}_bot.zip
-            ${{ steps.vars.outputs.version }}_dbm.zip
+            docs/downloads/latest_bot.zip
+            docs/downloads/latest_dbm.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
