@@ -6,7 +6,7 @@ on:
       - "bot/**"
 
 permissions:
-  contents: write # konieczne do edycji release i tagów
+  contents: write # potrzebne do gh release
 
 jobs:
   create_release:
@@ -45,7 +45,7 @@ jobs:
             echo "Previous 'latest' tag reassigned to '$PREV_LATEST_NAME'"
           fi
 
-      # 5️⃣ Remove previous release with same DBM version
+      # 5️⃣ Remove previous release with same DBM version (optional)
       - name: Remove previous release with same DBM version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
