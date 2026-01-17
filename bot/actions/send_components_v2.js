@@ -101,7 +101,7 @@ module.exports = {
   variableStorage(data, varType) {
     const type = parseInt(data.storage, 10);
     if (type !== varType) return;
-    return [data.varName2, "Message"];
+    return [data.varName2, data.dontSend ? "Message Options" : "Message"];
   },
 
   //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
@@ -345,7 +345,7 @@ module.exports = {
               <dbm-checkbox id="containerSpoiler" label="Make Container Spoiler"></dbm-checkbox>
             </div>
             <br><br><br>
-            <dialog-list id="containerComponents" fields='["componentType", "", "defaultContent", "", "sectionContent", "accessory", "", "images", "", "files", "", "divider", "spacing", "", "buttons", "selects"]' saveButtonText="Save Component" dialogTitle="Component Info" dialogWidth="780" dialogHeight="620" listLabel="Components" listStyle="height: calc(100vh - 300px);" itemName="Component" itemCols="1" itemHeight="40px;" itemTextFunction="'test'" itemStyle="line-height: 40px;">
+            <dialog-list id="containerComponents" fields='["componentType", "componentCustomName", "", "defaultContent", "", "sectionContent", "accessory", "", "images", "", "files", "", "divider", "spacing", "", "buttons", "selects"]' saveButtonText="Save Component" dialogTitle="Component Info" dialogWidth="780" dialogHeight="620" listLabel="Components" listStyle="height: calc(100vh - 300px);" itemName="Component" itemCols="1" itemHeight="40px;" itemTextFunction="data.componentCustomName || 'Container Component Name'" itemStyle="line-height: 40px;">
               <div style="padding: 16px;">
                 <div id="containerComponentTypeWrapper" style="float: left; width: 49%;">
                   <span class="dbminputlabel">Component Type</span>
@@ -359,7 +359,10 @@ module.exports = {
                     <option value="7">Select Menu</option>
                   </select>
                 </div>
-              </div>
+                <div id="componentCustomNameWrapper" style="float: right; width: 40%;">
+                  <span class="dbminputlabel">Component Custom Name</span>
+                  <input id="componentCustomName" class="round" type="text" placeholder="Leave blank for default...">
+                </div>
               <br><br><br>
               <dbm-container>
                 <div id="contentComponentWrapper">
@@ -731,6 +734,7 @@ module.exports = {
                   </dialog-list>
                 </div>
               </dbm-container>
+              </div>
               <img src="invalid_src" style="display:none" onerror="(function(){const s=document.getElementById('componentType');const wrappers={'0':document.getElementById('contentComponentWrapper'),'1':document.getElementById('sectionComponentWrapper'),'2':document.getElementById('containerComponentWrapper'),'3':document.getElementById('imagesComponentWrapper'),'4':document.getElementById('filesComponentWrapper'),'5':document.getElementById('separatorComponentWrapper'),'6':document.getElementById('buttonsComponentWrapper'),'7':document.getElementById('selectsComponentWrapper')};if(!s)return;function u(){for(const k in wrappers){if(wrappers[k])wrappers[k].style.display=k===s.value?'block':'none';}}u();s.addEventListener('change',u);})()">
             </dialog-list>
           </div>
