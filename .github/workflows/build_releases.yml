@@ -15,99 +15,117 @@ jobs:
 
     steps:
       # 1️⃣ Checkout repo
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Ustawienie zmiennych wersji
-      - name: Set version variables
-        id: vars
+      # 2️⃣ Odczytanie wersji bota i discord.js
+      - name: Read Versions
+        id: versions
         run: |
-          if [ "${GITHUB_REF_NAME}" = "main" ]; then
-            echo "version=latest" >> $GITHUB_OUTPUT
-            echo "save_docs=true" >> $GITHUB_OUTPUT
-          else
-            echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-            echo "save_docs=false" >> $GITHUB_OUTPUT
-          fi
+          FULL_BOT_VERSION=$(node -p "require('./bot/package.json').version")
+          BOT_VERSION="v$(echo $FULL_BOT_VERSION | cut -d. -f1,2)"
+          RAW_DISCORDJS_VERSION=$(node -p "const p=require('./bot/package.json'); const v=(p.dependencies?.['discord.js'] || p.devDependencies?.['discord.js'] || 'unknown'); console.log(v)")
+          DISCORDJS_VERSION="v$(echo $RAW_DISCORDJS_VERSION | sed 's/^[^0-9]*//')"
+          echo "bot=$BOT_VERSION" >> $GITHUB_OUTPUT
+          echo "discordjs=$DISCORDJS_VERSION" >> $GITHUB_OUTPUT
 
-      # 3️⃣ Odczyt wersji Discord.js
-      - name: Read Discord.js version
-        id: discordjs
-        run: |
-          if [ -f bot/package.json ]; then
-            VERSION=$(node -e "const p=require('./bot/package.json'); const v=(p.dependencies?.['discord.js'] || p.devDependencies?.['discord.js'] || 'unknown'); console.log(v.replace(/^[^0-9]*/, ''))")
-          else
-            VERSION="unknown"
-          fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-
-      # 4️⃣ Tworzenie branchy wersji (tylko main)
-      - name: Create version branch if not exists
+      # 3️⃣ Tworzenie/aktualizacja branchy wersji (tylko main)
+      - name: Create/Update version branch
         if: github.ref_name == 'main'
         run: |
-          if [ -f bot/package.json ]; then
-            BOT_VERSION=$(node -p "require('./bot/package.json').version")
-            BRANCH_NAME="v${BOT_VERSION}"
+          # Pełna wersja bota (np. 4.1.0)
+          FULL_BOT_VERSION=$(node -p "require('./bot/package.json').version")
 
-            # sprawdź czy branch istnieje w remote
-            if git ls-remote --exit-code origin $BRANCH_NAME; then
-              echo "Branch $BRANCH_NAME already exists"
-            else
-              echo "Creating branch $BRANCH_NAME"
-              git checkout -b $BRANCH_NAME
-              git push origin $BRANCH_NAME
-              git checkout main
-            fi
+          # Wyciągamy major.minor (np. 4.0 lub 4.1) → nazwa brancha
+          MAJOR_MINOR=$(echo $FULL_BOT_VERSION | cut -d. -f1,2)
+          BRANCH_NAME="v$MAJOR_MINOR"
+
+          echo "Full bot version: $FULL_BOT_VERSION"
+          echo "Target branch: $BRANCH_NAME"
+
+          # Sprawdzenie czy branch istnieje w remote
+          if git ls-remote --exit-code origin $BRANCH_NAME; then
+            echo "Branch $BRANCH_NAME exists, updating it..."
+            git checkout $BRANCH_NAME
+            # Kopiowanie aktualnych folderów
+            cp -r bot dbm .
+            git add bot dbm
+            git commit -m "Update bot and dbm for version $FULL_BOT_VERSION" || echo "No changes to commit"
+            git push origin $BRANCH_NAME
+            git checkout main
+          else
+            echo "Branch $BRANCH_NAME does not exist, creating it..."
+            git checkout -b $BRANCH_NAME
+            cp -r bot dbm .
+            git add bot dbm
+            git commit -m "Create branch for version $FULL_BOT_VERSION"
+            git push origin $BRANCH_NAME
+            git checkout main
           fi
 
-      # 5️⃣ Tworzenie ZIP-ów
+      # 4️⃣ Tworzenie ZIP-ów i zapisywanie w ./docs/downloads
       - name: Create ZIP files
         run: |
-          zip -r ${{ steps.vars.outputs.version }}_bot.zip bot
-          zip -r ${{ steps.vars.outputs.version }}_dbm.zip dbm
-
-      # 6️⃣ Zapis ZIP-ów do docs/downloads (tylko main)
-      - name: Save ZIPs to docs/downloads (main only)
-        if: steps.vars.outputs.save_docs == 'true'
-        run: |
           mkdir -p docs/downloads
-          mv ${{ steps.vars.outputs.version }}_bot.zip docs/downloads/latest_bot.zip
-          mv ${{ steps.vars.outputs.version }}_dbm.zip docs/downloads/latest_dbm.zip
 
-      # 7️⃣ Commit ZIP-ów do main
-      - name: Commit ZIPs to main
-        if: steps.vars.outputs.save_docs == 'true'
+          # ZIP-y "latest"
+          zip -r docs/downloads/latest_bot.zip bot
+          zip -r docs/downloads/latest_dbm.zip dbm
+
+          # ZIP-y z wersją (np. v4.1)
+          zip -r docs/downloads/${{ steps.versions.outputs.bot }}_bot.zip bot
+          zip -r docs/downloads/${{ steps.versions.outputs.bot }}_dbm.zip dbm
+
+          echo "Created ZIPs:"
+          ls -lh docs/downloads/
+
+      # 5️⃣ Tworzenie/aktualizacja releases
+      - name: Create/Update GitHub Releases
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          set -e
 
-          git add docs/downloads/latest_bot.zip docs/downloads/latest_dbm.zip
+          # ---------- RELEASE "latest" ----------
+          LATEST_TAG="latest"
+          echo "Creating/updating latest release with tag $LATEST_TAG"
 
-          if git diff --cached --quiet; then
-            echo "No ZIP changes"
-          else
-            git commit -m "Update latest download ZIPs"
-            git push
+          # Usuń stary tag, jeśli istnieje
+          if git rev-parse "$LATEST_TAG" >/dev/null 2>&1; then
+            git tag -d "$LATEST_TAG"
+            git push origin --delete "$LATEST_TAG"
+          fi
 
-      # 8️⃣ Usuń stary release
-      - name: Delete old release
-        uses: dev-drprasad/delete-tag-and-release@v1.1
-        with:
-          tag_name: ${{ steps.vars.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Utwórz nowy tag
+          git tag "$LATEST_TAG"
+          git push origin "$LATEST_TAG"
 
-      # 9️⃣ Tworzenie nowego release z ZIP-ami
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.vars.outputs.version }}
-          name: ${{ steps.vars.outputs.version }}
-          body: |
-            - **Bot version:** ${{ steps.vars.outputs.version }}
-            - **DiscordJS version:** ${{ steps.discordjs.outputs.version }}
-          files: |
-            docs/downloads/latest_bot.zip
-            docs/downloads/latest_dbm.zip
+          # Utwórz release z assetami latest
+          gh release delete "$LATEST_TAG" --yes || true
+          gh release create "$LATEST_TAG" \
+            --title "latest" \
+            --notes "- **Bot version:** ${{ steps.versions.outputs.bot }}\n- **DiscordJS version:** ${{ steps.versions.outputs.discordjs }}" \
+            docs/downloads/latest_bot.zip docs/downloads/latest_dbm.zip
+
+          # ---------- RELEASE z wersją ----------
+          VERSION_TAG="${FULL_BOT_VERSION}"
+          VERSION_NAME="${{ steps.versions.outputs.bot }}"
+          echo "Creating/updating version release with tag $VERSION_TAG"
+
+          # Usuń stary tag, jeśli istnieje
+          if git rev-parse "$VERSION_TAG" >/dev/null 2>&1; then
+            git tag -d "$VERSION_TAG"
+            git push origin --delete "$VERSION_TAG"
+          fi
+
+          # Utwórz nowy tag
+          git tag "$VERSION_TAG"
+          git push origin "$VERSION_TAG"
+
+          # Utwórz release z assetami wersji
+          gh release delete "$VERSION_TAG" --yes || true
+          gh release create "$VERSION_TAG" \
+            --title "$VERSION_NAME" \
+            --notes "- **Bot version:** ${{ steps.versions.outputs.bot }}\n- **DiscordJS version:** ${{ steps.versions.outputs.discordjs }}" \
+            docs/downloads/${{ steps.versions.outputs.bot }}_bot.zip \
+            docs/downloads/${{ steps.versions.outputs.bot }}_dbm.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
