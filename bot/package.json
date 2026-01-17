@@ -1,7 +1,7 @@
 {
   "name": "bot-v14",
-  "description": "first333",
-  "version": "4.0.3",
+  "description": "",
+  "version": "4.0.0",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
