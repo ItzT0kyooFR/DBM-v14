@@ -51,6 +51,7 @@ jobs:
       # 5️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
         run: |
+          echo "$GH_TOKEN" | gh auth login --with-token
           RELEASE_NAME="${DBM_VERSION:-$BOT_VERSION}"
           RELEASE_BODY="Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}"
           echo "Creating release $RELEASE_NAME with tag 'latest'..."
@@ -60,4 +61,4 @@ jobs:
             --target main \
             bot.zip dbm.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
