@@ -40,7 +40,10 @@ jobs:
           echo "Full bot version: $FULL_BOT_VERSION"
           echo "Target branch: $BRANCH_NAME"
 
-          # Jeśli branch istnieje → checkout i commituj zmiany
+          # Ustawienie autora commita dla GitHub Actions
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
           if git ls-remote --exit-code origin $BRANCH_NAME; then
             echo "Branch $BRANCH_NAME exists, updating it..."
             git fetch origin $BRANCH_NAME
