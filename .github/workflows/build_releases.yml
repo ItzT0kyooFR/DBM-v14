@@ -28,6 +28,7 @@ jobs:
           else
             echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
             echo "save_docs=false" >> $GITHUB_OUTPUT
+          fi
 
       # 3️⃣ Odczyt wersji Discord.js
       - name: Read Discord.js version
