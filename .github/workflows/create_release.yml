@@ -50,7 +50,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NOTES=$(printf "Bot version: v%s\nDiscordJS version: %s" "$BOT_VERSION" "$DISCORDJS_VERSION")
+          RELEASE_NOTES=$(printf "- **Bot version:** %s\n- **DiscordJS version:** %s" "$BOT_VERSION" "$DISCORDJS_VERSION")
 
           echo "Updating release '$DBM_VERSION' (tag: $EXISTING_TAG)"
 
@@ -86,7 +86,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NOTES=$(printf "Bot version: v%s\nDiscordJS version: %s" "$BOT_VERSION" "$DISCORDJS_VERSION")
+          RELEASE_NOTES=$(printf "- **Bot version:** v%s\n- **DiscordJS version:** %s" "$BOT_VERSION" "$DISCORDJS_VERSION")
 
           gh release create latest \
             --title "$DBM_VERSION" \
