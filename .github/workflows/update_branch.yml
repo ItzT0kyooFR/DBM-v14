@@ -24,16 +24,10 @@ jobs:
         run: |
           FULL_VERSION=$(jq -r '.version' bot/package.json)
           echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_ENV
-
-          # wyciągnij major.minor
           SHORT_VERSION=$(echo "$FULL_VERSION" | awk -F. '{print $1"."$2}')
           echo "SHORT_VERSION=$SHORT_VERSION" >> $GITHUB_ENV
-
-          # branch name
           BRANCH_NAME="v$SHORT_VERSION"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-
-          # sprawdzamy, czy patch > 0
           PATCH=$(echo "$FULL_VERSION" | awk -F. '{print $3}')
           echo "PATCH=$PATCH" >> $GITHUB_ENV
 
@@ -65,24 +59,17 @@ jobs:
             git checkout -b $BRANCH_NAME
           fi
 
-      - name: Copy files to branch
+      - name: Clean branch
         run: |
-          cp -r dbm/ dbm_tmp/
-          cp -r bot/ bot_tmp/
-          cp README.md README_tmp.md
-          cp LICENSE LICENSE_tmp
+          # usuń wszystko co nie jest dbm, bot, README.md, LICENSE
+          find . -maxdepth 1 ! -name '.git' ! -name 'dbm' ! -name 'bot' ! -name 'README.md' ! -name 'LICENSE' -exec rm -rf {} +
 
-          # usuń stare pliki
-          rm -rf dbm bot README.md LICENSE
-
-          # przenieś nowe
-          mv dbm_tmp dbm
-          mv bot_tmp bot
-          mv README_tmp.md README.md
-          mv LICENSE_tmp LICENSE
+      - name: Copy latest dbm, bot, README.md, LICENSE from main
+        run: |
+          git checkout main -- dbm bot README.md LICENSE || true
 
       - name: Commit and push
         run: |
           git add dbm bot README.md LICENSE
-          git commit -m "Update branch for version $FULL_VERSION" || echo "Nothing to commit"
+          git commit -m "Update branch $BRANCH_NAME for version $FULL_VERSION" || echo "Nothing to commit"
           git push origin $BRANCH_NAME
