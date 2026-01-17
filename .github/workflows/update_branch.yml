@@ -14,62 +14,45 @@ jobs:
   update_branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Get DBM version
         id: get_version
         run: |
           FULL_VERSION=$(jq -r '.version' bot/package.json)
-          echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_ENV
-          SHORT_VERSION=$(echo "$FULL_VERSION" | awk -F. '{print $1"."$2}')
-          echo "SHORT_VERSION=$SHORT_VERSION" >> $GITHUB_ENV
-          BRANCH_NAME="v$SHORT_VERSION"
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-          PATCH=$(echo "$FULL_VERSION" | awk -F. '{print $3}')
-          echo "PATCH=$PATCH" >> $GITHUB_ENV
-
-      - name: Skip if patch version
-        if: env.PATCH != '0'
-        run: |
-          echo "Patch version ($FULL_VERSION) detected. Skipping branch creation."
-          exit 0
+          # Zamiana np. 4.0.0 -> v4.0
+          VERSION="v$(echo $FULL_VERSION | awk -F. '{print $1"."$2}')"
+          echo "BRANCH_NAME=$VERSION" >> $GITHUB_ENV
 
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Check if branch exists
-        id: check_branch
+      - name: Create or update branch
+        env:
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
         run: |
+          # Sprawdź czy branch istnieje
           if git show-ref --verify --quiet refs/heads/$BRANCH_NAME; then
-            echo "EXISTS=true" >> $GITHUB_ENV
+            EXISTS=true
           else
-            echo "EXISTS=false" >> $GITHUB_ENV
+            EXISTS=false
           fi
 
-      - name: Create or switch branch
-        run: |
-          if [ "$EXISTS" = "true" ]; then
-            git checkout $BRANCH_NAME
-          else
-            git checkout -b $BRANCH_NAME
-          fi
+          # Stwórz branch od main
+          git checkout -B "$BRANCH_NAME" main
 
-      - name: Clean branch
-        run: |
-          # usuń wszystko co nie jest dbm, bot, README.md, LICENSE
+          # Usuń wszystko oprócz wybranych folderów i plików
           find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name 'dbm' ! -name 'bot' ! -name 'README.md' ! -name 'LICENSE' -exec rm -rf {} +
 
-      - name: Copy latest dbm, bot, README.md, LICENSE from main
-        run: |
+          # Skopiuj najnowsze wersje folderów i plików z main (jeżeli coś jest nowe)
           git checkout main -- dbm bot README.md LICENSE || true
 
-      - name: Commit and push
-        run: |
+          # Dodaj zmiany i commit
           git add dbm bot README.md LICENSE
-          git commit -m "Update branch $BRANCH_NAME for version $FULL_VERSION" || echo "Nothing to commit"
-          git push origin $BRANCH_NAME
+          git commit -m "Update branch $BRANCH_NAME" || echo "No changes to commit"
+
+          # Wypchnij branch na repozytorium
+          git push origin "$BRANCH_NAME" --force
