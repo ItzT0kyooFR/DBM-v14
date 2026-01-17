@@ -48,6 +48,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
 
+      - name: Remove previous 'latest' release
+        run: |
+          PREV_LATEST_TAG=$(gh release list --limit 10 --json tagName | jq -r '.[] | select(.tagName=="latest") | .tagName')
+          if [ -n "$PREV_LATEST_TAG" ]; then
+            echo "Found previous release with tag 'latest', deleting..."
+           gh release delete "$PREV_LATEST_TAG" --yes
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+
       # 5️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
         run: |
