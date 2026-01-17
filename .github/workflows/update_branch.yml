@@ -62,7 +62,7 @@ jobs:
       - name: Clean branch
         run: |
           # usuń wszystko co nie jest dbm, bot, README.md, LICENSE
-          find . -maxdepth 1 ! -name '.git' ! -name 'dbm' ! -name 'bot' ! -name 'README.md' ! -name 'LICENSE' -exec rm -rf {} +
+          find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name 'dbm' ! -name 'bot' ! -name 'README.md' ! -name 'LICENSE' -exec rm -rf {} +
 
       - name: Copy latest dbm, bot, README.md, LICENSE from main
         run: |
