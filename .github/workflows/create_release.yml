@@ -4,13 +4,16 @@ on:
     branches: ["main"]
     paths:
       - "bot/package.json"
+
 jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Get bot and DiscordJS versions
       - name: Get versions
         id: get_versions
         run: |
@@ -28,23 +31,29 @@ jobs:
           echo "DISCORDJS_VERSION=$DISCORDJS_VERSION" >> $GITHUB_ENV
           echo "DBM_VERSION=$DBM_VERSION" >> $GITHUB_ENV
 
+      # 3️⃣ Create zip files (exclude node_modules to keep zips small)
       - name: Create zip files
         run: |
           zip -r bot.zip bot/
-          zip -r dbm.zip dbm/
+          zip -r dbm.zip dbm/ -x "dbm/resources/app/nodejs/node_modules/*"
+
+      # 4️⃣ Remove previous release with same DBM version
       - name: Remove previous release with same DBM version
         run: |
-          PREV_RELEASE_ID=$(gh release list --limit 100 --json id,title | jq -r ".[] | select(.title==\"${DBM_VERSION}\") | .id")
-          if [ -n "$PREV_RELEASE_ID" ]; then
-            echo "Found existing release with DBM version $DBM_VERSION, deleting it..."
-            gh release delete $PREV_RELEASE_ID --yes
+          PREV_RELEASE_TAG=$(gh release list --limit 100 --json tagName,name | jq -r ".[] | select(.name==\"${DBM_VERSION}\") | .tagName")
+          if [ -n "$PREV_RELEASE_TAG" ]; then
+            echo "Found existing release with DBM version $DBM_VERSION (tag: $PREV_RELEASE_TAG), deleting it..."
+            gh release delete "$PREV_RELEASE_TAG" --yes
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 5️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
         run: |
           RELEASE_NAME="${DBM_VERSION:-$BOT_VERSION}"
           RELEASE_BODY="Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}"
+          echo "Creating release $RELEASE_NAME with tag 'latest'..."
           gh release create latest \
             --title "$RELEASE_NAME" \
             --notes "$RELEASE_BODY" \
