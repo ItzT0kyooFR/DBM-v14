@@ -1,4 +1,4 @@
-name: Update Branch
+name: Update Version Branch
 
 on:
   push:
@@ -16,43 +16,35 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Get DBM version
-        id: get_version
         run: |
           FULL_VERSION=$(jq -r '.version' bot/package.json)
-          # Zamiana np. 4.0.0 -> v4.0
-          VERSION="v$(echo $FULL_VERSION | awk -F. '{print $1"."$2}')"
-          echo "BRANCH_NAME=$VERSION" >> $GITHUB_ENV
+          BRANCH_NAME="v$(echo $FULL_VERSION | awk -F. '{print $1"."$2}')"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: Configure git
+      - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create or update branch
-        env:
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+      - name: Create or switch to version branch
         run: |
-          # Sprawdź czy branch istnieje
           if git show-ref --verify --quiet refs/heads/$BRANCH_NAME; then
-            EXISTS=true
+            git checkout $BRANCH_NAME
           else
-            EXISTS=false
+            git checkout --orphan $BRANCH_NAME
+            git rm -rf . || true
           fi
 
-          # Stwórz branch od main
-          git checkout -B "$BRANCH_NAME" main
+      - name: Copy only dbm, bot, LICENSE and README.md
+        run: |
+          git checkout main -- dbm bot LICENSE README.md || true
 
-          # Usuń wszystko oprócz wybranych folderów i plików
-          find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name 'dbm' ! -name 'bot' ! -name 'README.md' ! -name 'LICENSE' -exec rm -rf {} +
-
-          # Skopiuj najnowsze wersje folderów i plików z main (jeżeli coś jest nowe)
-          git checkout main -- dbm bot README.md LICENSE || true
-
-          # Dodaj zmiany i commit
-          git add dbm bot README.md LICENSE
+      - name: Commit and push
+        run: |
+          git add dbm bot LICENSE README.md
           git commit -m "Update branch $BRANCH_NAME" || echo "No changes to commit"
-
-          # Wypchnij branch na repozytorium
-          git push origin "$BRANCH_NAME" --force
+          git push origin $BRANCH_NAME --force
