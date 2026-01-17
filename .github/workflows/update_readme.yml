@@ -1,0 +1,38 @@
+name: Update README Discord.js Version
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "bot/package.json"
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Get Versions
+        id: versions
+        run: |
+          # Pobranie wersji Discord.js (usuń ^)
+          DISCORD_JS=$(node -p "require('./bot/package.json').dependencies['discord.js'].replace('^','')")
+          # Pobranie wersji DBM
+          DBM=$(node -p "require('./bot/package.json').version")
+          echo "discord_js_version=$DISCORD_JS" >> $GITHUB_OUTPUT
+          echo "dbm_version=$DBM" >> $GITHUB_OUTPUT
+      - name: Update README
+        run: |
+          sed -i "s/DiscordJS - [0-9]\+\.[0-9]\+\.[0-9]\+/DiscordJS - ${{ steps.versions.outputs.discord_js_version }}/" README.md
+          sed -i "s/DBM - [0-9]\+\.[0-9]\+\.[0-9]\+/DBM - ${{ steps.versions.outputs.dbm_version }}/" README.md
+      - name: Commit Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update Discord.js and DBM versions in README" || echo "No changes to commit"
+          git push
