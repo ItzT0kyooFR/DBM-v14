@@ -33,22 +33,19 @@ jobs:
       - name: Create/Update version branch
         if: github.ref_name == 'main'
         run: |
-          # Pełna wersja bota (np. 4.1.0)
           FULL_BOT_VERSION=$(node -p "require('./bot/package.json').version")
-
-          # Wyciągamy major.minor (np. 4.0 lub 4.1) → nazwa brancha
           MAJOR_MINOR=$(echo $FULL_BOT_VERSION | cut -d. -f1,2)
           BRANCH_NAME="v$MAJOR_MINOR"
 
           echo "Full bot version: $FULL_BOT_VERSION"
           echo "Target branch: $BRANCH_NAME"
 
-          # Sprawdzenie czy branch istnieje w remote
+          # Jeśli branch istnieje → checkout i commituj zmiany
           if git ls-remote --exit-code origin $BRANCH_NAME; then
             echo "Branch $BRANCH_NAME exists, updating it..."
+            git fetch origin $BRANCH_NAME
             git checkout $BRANCH_NAME
-            # Kopiowanie aktualnych folderów
-            cp -r bot dbm .
+            git merge main --ff-only
             git add bot dbm
             git commit -m "Update bot and dbm for version $FULL_BOT_VERSION" || echo "No changes to commit"
             git push origin $BRANCH_NAME
@@ -56,7 +53,6 @@ jobs:
           else
             echo "Branch $BRANCH_NAME does not exist, creating it..."
             git checkout -b $BRANCH_NAME
-            cp -r bot dbm .
             git add bot dbm
             git commit -m "Create branch for version $FULL_BOT_VERSION"
             git push origin $BRANCH_NAME
