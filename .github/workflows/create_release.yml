@@ -35,17 +35,20 @@ jobs:
 
       # 4️⃣ Reassign previous 'latest' tag to its release name
       - name: Reassign previous 'latest' tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PREV_LATEST_NAME=$(gh release list --limit 10 --json tagName,name | jq -r '.[] | select(.tagName=="latest") | .name')
           if [ -n "$PREV_LATEST_NAME" ]; then
             echo "Found previous release with tag 'latest': $PREV_LATEST_NAME"
-            # Update the previous release to use its name as tag
             gh release edit "$PREV_LATEST_NAME" --tag "$PREV_LATEST_NAME"
             echo "Previous 'latest' tag reassigned to '$PREV_LATEST_NAME'"
           fi
 
-      # 5️⃣ Remove previous release with same DBM version (optional)
+      # 5️⃣ Remove previous release with same DBM version
       - name: Remove previous release with same DBM version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PREV_RELEASE_TAG=$(gh release list --limit 100 --json tagName,name | jq -r ".[] | select(.name==\"${DBM_VERSION}\") | .tagName")
           if [ -n "$PREV_RELEASE_TAG" ]; then
@@ -55,6 +58,8 @@ jobs:
 
       # 6️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RELEASE_NAME="${DBM_VERSION:-$BOT_VERSION}"
           RELEASE_BODY="Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}"
