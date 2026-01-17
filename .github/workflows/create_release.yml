@@ -20,7 +20,10 @@ jobs:
       - name: Get versions
         run: |
           BOT_VERSION=$(jq -r '.version' bot/package.json)
-          DISCORDJS_VERSION=$(jq -r '.dependencies["discord.js"]' bot/package.json)
+          DISCORDJS_RAW=$(jq -r '.dependencies["discord.js"]' bot/package.json)
+
+          # usuń ^ ~ >= <= itd.
+          DISCORDJS_VERSION=$(echo "$DISCORDJS_RAW" | sed 's/[^0-9.]*//g')
 
           echo "BOT_VERSION=$BOT_VERSION" >> $GITHUB_ENV
           echo "DISCORDJS_VERSION=$DISCORDJS_VERSION" >> $GITHUB_ENV
