@@ -1,10 +1,13 @@
-name: Update README Discord.js Version
+name: Update README
 
 on:
   push:
     branches: [main]
     paths:
       - "bot/package.json"
+
+permissions:
+  contents: write
 
 jobs:
   update-readme:
@@ -35,4 +38,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "Update Discord.js and DBM versions in README" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
