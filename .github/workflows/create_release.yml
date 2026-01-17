@@ -23,11 +23,12 @@ jobs:
         run: |
           zip -r bot.zip bot/
           zip -r dbm.zip dbm/
-      - name: Remove previous latest tag
+      - name: Remove previous release with same DBM version
         run: |
-          PREV_RELEASE_ID=$(gh release list --limit 1 --json tagName | jq -r '.[0].tagName')
-          if [ "$PREV_RELEASE_ID" = "latest" ]; then
-            gh release delete latest --yes
+          PREV_RELEASE_ID=$(gh release list --limit 100 --json id,title | jq -r ".[] | select(.title==\"${DBM_VERSION}\") | .id")
+          if [ -n "$PREV_RELEASE_ID" ]; then
+            echo "Found existing release with DBM version $DBM_VERSION, deleting it..."
+            gh release delete $PREV_RELEASE_ID --yes
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
