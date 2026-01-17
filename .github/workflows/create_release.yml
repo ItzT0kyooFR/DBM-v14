@@ -3,7 +3,10 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "bot/package.json"
+      - "bot/**"
+
+permissions:
+  contents: write # konieczne do edycji release i tagów
 
 jobs:
   create_release:
@@ -33,18 +36,13 @@ jobs:
       # 4️⃣ Reassign previous 'latest' tag to its release name
       - name: Reassign previous 'latest' tag
         run: |
-          LATEST_RELEASE_NAME=$(gh release list --limit 10 --json tagName,name | jq -r '.[] | select(.tagName=="latest") | .name')
-          if [ -n "$LATEST_RELEASE_NAME" ]; then
-            echo "Found previous release with tag 'latest': $LATEST_RELEASE_NAME"
-            # Create git tag with release name if it doesn't exist
-            git tag -f "$LATEST_RELEASE_NAME" || true
-            git push origin "$LATEST_RELEASE_NAME" --force || true
-            # Update the release to point to new tag
-            gh release edit "$LATEST_RELEASE_NAME" --tag "$LATEST_RELEASE_NAME"
-            echo "Previous 'latest' tag reassigned to '$LATEST_RELEASE_NAME'"
+          PREV_LATEST_NAME=$(gh release list --limit 10 --json tagName,name | jq -r '.[] | select(.tagName=="latest") | .name')
+          if [ -n "$PREV_LATEST_NAME" ]; then
+            echo "Found previous release with tag 'latest': $PREV_LATEST_NAME"
+            # Update the previous release to use its name as tag
+            gh release edit "$PREV_LATEST_NAME" --tag "$PREV_LATEST_NAME"
+            echo "Previous 'latest' tag reassigned to '$PREV_LATEST_NAME'"
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
 
       # 5️⃣ Remove previous release with same DBM version (optional)
       - name: Remove previous release with same DBM version
@@ -54,8 +52,6 @@ jobs:
             echo "Found existing release with DBM version $DBM_VERSION (tag: $PREV_RELEASE_TAG), deleting it..."
             gh release delete "$PREV_RELEASE_TAG" --yes
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
 
       # 6️⃣ Create new release with tag latest and zip assets
       - name: Create Release with assets
@@ -63,13 +59,8 @@ jobs:
           RELEASE_NAME="${DBM_VERSION:-$BOT_VERSION}"
           RELEASE_BODY="Bot version: v${BOT_VERSION}\nDiscordJS version: ${DISCORDJS_VERSION}"
           echo "Creating release $RELEASE_NAME with tag 'latest'..."
-          # Force overwrite latest tag if exists
           gh release create latest \
             --title "$RELEASE_NAME" \
             --notes "$RELEASE_BODY" \
             --target main \
-            --prerelease false \
-            --discussion-category '' \
             bot.zip dbm.zip
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
