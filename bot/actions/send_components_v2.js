@@ -1095,7 +1095,7 @@ module.exports = {
         const components = data.containerComponents.length;
         const spoiler = data.containerSpoiler ? "yes" : "no";
         const color = data.containerColor || "no";
-        return `<b>Color: </b>${color} <b>---</b> <b>Spoiler:</b> ${spoiler} <b>---</b> <b>Components:</b> (${components} - 20)${typeText}`;
+        return `<b>Color: </b>${color} <b>---</b> <b>Spoiler:</b> ${spoiler} <b>---</b> <b>Components:</b> ${components}${typeText}`;
       } else if (type === "3") {
         const amount = data.images.length;
         return `<b>Number of Images:</b> (${amount} - 10)${typeText}`;
