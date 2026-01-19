@@ -84,7 +84,7 @@ module.exports = {
 
   meta: {
     version: "4.0.0",
-    modVersion: "1.0.0",
+    modVersion: "1.0.1",
     preciseCheck: true,
     author: "Shadow",
     help: "https://dc.dbm-poland.site",
@@ -240,7 +240,7 @@ module.exports = {
 
 <br><br><br>
 
-<member-input dropdownLabel="Source" selectId="member" variableContainerId="varNameContainer2" variableInputId="varName2"></member-input>
+<member-input dropdownLabel="Member" selectId="member" variableContainerId="varNameContainer2" variableInputId="varName2"></member-input>
 
 <br><br><br><br>
 
