@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Message
-        uses: Ilshidur/action-discord@v0.4.0
+        uses: Ilshidur/action-discord@ad5235de713df3ef38022185499b02ffe93b7efe
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message: |
