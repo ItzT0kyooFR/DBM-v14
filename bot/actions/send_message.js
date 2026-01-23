@@ -94,7 +94,7 @@ module.exports = {
 
   meta: {
     version: "4.0.0",
-    modVersion: "1.0.0",
+    modVersion: "1.0.1",
     preciseCheck: true,
     author: "Shadow",
     help: "https://dc.dbm-poland.site",
@@ -965,9 +965,11 @@ module.exports = {
       let embeds = [];
       let embedFiles = [];
       for (const e of data.embeds) {
-        const timestamp = e.useTimestamp
-          ? parseInt(this.evalMessage(e.timestamp, cache), 10) || new Date()
-          : null;
+        let timestamp;
+        if (e.useTimestamp) {
+          timestamp =
+            this.evalMessage(e.timestamp, cache) || Date.now().toString();
+        }
         const fields = [];
         for (const f of e.fields) {
           const field = this.generateEmbedField(
@@ -1463,6 +1465,7 @@ module.exports = {
       const varName2 = this.evalMessage(data.varName2, cache);
       const storage = parseInt(data.storage, 10);
       this.storeValue(resultMsg || message, storage, varName2, cache);
+      console.log(resultMsg);
     } catch (err) {
       this.displayError(data, cache, err);
     }
