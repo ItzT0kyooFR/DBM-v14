@@ -10,16 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Message
-        uses: Ilshidur/action-discord@ad5235de713df3ef38022185499b02ffe93b7efe
+        uses: tsickert/discord-webhook@v7
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: |
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          content: |
             {
               "embeds": [
                 {
                   "title": "[DBM-v14] new commit",
                   "description": "${{ github.event.head_commit.message }}",
-                  "url": "${{ github.event.head_commit.url }}"
+                  "url": "${{ github.event.head_commit.url }}",
                   "color": 65297,
                   "timestamp": "${{ github.event.head_commit.timestamp }}",
                   "thumbnail": {
