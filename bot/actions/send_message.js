@@ -1465,7 +1465,6 @@ module.exports = {
       const varName2 = this.evalMessage(data.varName2, cache);
       const storage = parseInt(data.storage, 10);
       this.storeValue(resultMsg || message, storage, varName2, cache);
-      console.log(resultMsg);
     } catch (err) {
       this.displayError(data, cache, err);
     }
