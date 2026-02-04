@@ -110,7 +110,7 @@ module.exports = {
 
   meta: {
     version: "4.0.0",
-    modVersion: "1.0.0",
+    modVersion: "1.0.1",
     preciseCheck: true,
     author: "Shadow",
     help: "https://dc.dbm-poland.site",
@@ -1287,7 +1287,7 @@ module.exports = {
       // # Content
       //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
       if (c.componentType === "0") {
-        const content = this.evalMessage(c.defaultContent, 10);
+        const content = this.evalMessage(c.defaultContent, cache);
         const component = new TextDisplayBuilder().setContent(content);
         components.push(component);
       }
@@ -1297,7 +1297,7 @@ module.exports = {
       //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
       else if (c.componentType === "1") {
         const contentComponent = new TextDisplayBuilder().setContent(
-          this.evalMessage(c.sectionContent, 10) || "ᅠ",
+          this.evalMessage(c.sectionContent, cache) || "ᅠ",
         );
         const component = new SectionBuilder().addTextDisplayComponents(
           contentComponent,
@@ -1367,7 +1367,7 @@ module.exports = {
             return undefined;
           }
           const accentColor = parseColor(
-            this.evalMessage(c.containerColor, 10),
+            this.evalMessage(c.containerColor, cache),
           );
           const containerComponent = new ContainerBuilder()
             .setSpoiler(c.containerSpoiler)
@@ -1377,7 +1377,7 @@ module.exports = {
             // * C. Content
             //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
             if (cc.componentType === "0") {
-              const content = this.evalMessage(cc.defaultContent, 10);
+              const content = this.evalMessage(cc.defaultContent, cache);
               const textDisplayComponent = new TextDisplayBuilder().setContent(
                 content,
               );
@@ -1389,7 +1389,7 @@ module.exports = {
             //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
             else if (cc.componentType === "1") {
               const contentComponent = new TextDisplayBuilder().setContent(
-                this.evalMessage(cc.sectionContent, 10) || "ᅠ",
+                this.evalMessage(cc.sectionContent, cache) || "ᅠ",
               );
               const sectionComponent =
                 new SectionBuilder().addTextDisplayComponents(contentComponent);
@@ -1475,7 +1475,7 @@ module.exports = {
                 const fileComponents = [];
                 for (const f of cc.files) {
                   const url = this.evalIfPossible(f.url, cache);
-                  const name = this.evalMessage(f.name, 10);
+                  const name = this.evalMessage(f.name, cache);
                   const spoiler = f.spoiler;
                   const attachmentUrl = await this.resolveAttachmentUrl(
                     url,
@@ -1637,7 +1637,7 @@ module.exports = {
       else if (c.componentType === "4") {
         for (const f of c.files) {
           const url = this.evalIfPossible(f.url, cache);
-          const name = this.evalMessage(f.name, 10);
+          const name = this.evalMessage(f.name, cache);
           const spoiler = f.spoiler;
           const attachmentUrl = await this.resolveAttachmentUrl(url, files, {
             name: name,
