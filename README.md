@@ -9,7 +9,7 @@
       <br>
       DBM - 4.0.0
       <br>
-      <a href="https://dc.dbm-poland.site">
+      <a href="[https://dc.dbm-poland.site](https://discord.gg/4mXQ8rMSd9)">
         <img src="https://img.shields.io/discord/1301396266479124501?label=Discord" alt="Discord" />
       </a>
       <a href="https://github.com/shadoow051/DBM-v14">
