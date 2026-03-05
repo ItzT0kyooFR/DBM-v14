@@ -100,18 +100,25 @@ module.exports = {
     const reason = this.evalMessage(data.reason, cache) || undefined;
 
     //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-    // * Ban Member
+    // * Add Member Role
     //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 
     try {
-      const memberRoles = member.roles || [];
-      if (!memberRoles.includes(role.id || role)) {
-        memberRoles.push(role.id || role);
+      if (member?.roles?.add) {
+        await member.roles.add(role.id || role, reason);
+      } else {
+        const memberRoles = member.roles?.cache ? Array.from(member.roles.cache.keys()) : (Array.isArray(member.roles) ? member.roles : []);
+        const targetRoleId = role.id || role;
+
+        if (!memberRoles.includes(targetRoleId)) {
+          memberRoles.push(targetRoleId);
+        }
+
+        await server.members.edit(member.id || member, {
+          roles: memberRoles,
+          reason: reason,
+        });
       }
-      await server.members.edit(member.id || member, {
-        roles: memberRoles,
-        reason: reason,
-      });
     } catch (err) {
       this.displayError(data, cache, err);
     }
